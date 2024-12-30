@@ -14,7 +14,12 @@ const { checkSessionStatus } = require("./controllers/authController");
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "https://kronoslimited.com", credentials: true }));
+app.use(
+  cors({
+    origin: ["https://kronoslimited.com", "https://www.kronoslimited.com"],
+    credentials: true,
+  })
+);
 app.use("*", cloudinaryConfig);
 
 // Database Connection
