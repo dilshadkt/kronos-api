@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const User = require("../models/user");
 
 // Token generation with session tracking
 const generateToken = (user) => {
@@ -48,7 +48,6 @@ exports.register = async (req, res) => {
   }
 };
 // Login User
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -101,7 +100,6 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
-
 // Get Current User
 exports.getCurrentUser = async (req, res) => {
   try {
