@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   activeSession: { type: String, default: null },
   lastLoginTime: { type: Date, default: null },
 });

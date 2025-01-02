@@ -13,10 +13,15 @@ const { checkSessionStatus } = require("./controllers/authController");
 
 // Middleware
 app.use(express.json());
+// app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["https://kronoslimited.com", "https://www.kronoslimited.com"],
+    origin: [
+      "https://kronoslimited.com",
+      "https://www.kronoslimited.com",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );
