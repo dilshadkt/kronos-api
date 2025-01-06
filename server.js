@@ -21,7 +21,7 @@ app.use(
     origin: [
       "https://kronoslimited.com",
       "https://www.kronoslimited.com",
-      "http://localhost:5173",
+      "http://localhost:5174",
     ],
     credentials: true,
   })

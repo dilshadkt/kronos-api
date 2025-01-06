@@ -149,7 +149,11 @@ exports.forceLogoutAllSessions = async (req, res) => {
 const isTokenExpired = (token) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return false;
+    if (decoded) {
+      return false;
+    } else {
+      return true;
+    }
   } catch (err) {
     return err.name === "TokenExpiredError";
   }
