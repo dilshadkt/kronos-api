@@ -83,6 +83,29 @@ class TPStreamsService {
 
     return result;
   }
+  getSignalTutorialVideos(videos) {
+    const signalTutorialFolder = videos.find(
+      (item) => item.type === "folder" && item.title === "signals-tutorial"
+    );
+
+    if (!signalTutorialFolder) {
+      return [];
+    }
+
+    return videos
+      .filter(
+        (item) =>
+          item.type === "video" && item.parent_id === signalTutorialFolder.id
+      )
+      .map((video) => ({
+        title: video.title,
+        id: video.id,
+        type: video.type,
+        video: video.video,
+        drm_content_id: video.drm_content_id,
+        parent: video.parent,
+      }));
+  }
 }
 const tpStreamsService = new TPStreamsService();
 exports.getVideos = async (req, res) => {
@@ -92,5 +115,17 @@ exports.getVideos = async (req, res) => {
     res.json(organizedVideos);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getSignaleTutorial = async (req, res) => {
+  try {
+    const videos = await tpStreamsService.getVideos();
+
+    const signalTutorialVideos =
+      tpStreamsService.getSignalTutorialVideos(videos);
+    res.status(200).json({ isSuccess: true, videos: signalTutorialVideos });
+  } catch (error) {
+    res.status(400).json({ messageg: error.message });
   }
 };

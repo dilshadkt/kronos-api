@@ -1,10 +1,14 @@
 const express = require("express");
-const { getVideos } = require("../controllers/videoController");
+const {
+  getVideos,
+  getSignaleTutorial,
+} = require("../controllers/videoController");
 const authenticateToken = require("../middleware/authenticateToken");
 
 // Create Router
 const router = express.Router();
 
 router.get("/", authenticateToken, getVideos);
+router.get("/signale", authenticateToken, getSignaleTutorial);
 
 module.exports = router;
