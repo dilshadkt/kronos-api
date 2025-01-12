@@ -18,7 +18,7 @@ router.post(
   addAffiliate
 );
 router.get("/", authenticateToken, getAfiliates);
-router.get("/:id", authenticateToken, getAfilitate);
+router.get("/:id", getAfilitate);
 router.delete("/:id", authenticateToken, deleteAffiliate);
 router.patch(
   "/:id",
