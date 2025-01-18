@@ -63,13 +63,13 @@ exports.login = async (req, res) => {
     }
 
     // If user already has an active session
-    if (user.role === "admin" && user.activeSession) {
-      return res.status(403).json({
-        message:
-          "Account is already logged in on another device. Please log out from other sessions first.",
-        timestamp: user.lastLoginTime,
-      });
-    }
+    // if (user.role === "admin" && user.activeSession) {
+    //   return res.status(403).json({
+    //     message:
+    //       "Account is already logged in on another device. Please log out from other sessions first.",
+    //     timestamp: user.lastLoginTime,
+    //   });
+    // }
 
     // Generate new token and session
     const { token, sessionId } = generateToken(user);
