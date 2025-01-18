@@ -4,6 +4,7 @@ const {
   login,
   getCurrentUser,
   logout,
+  forceLogoutAllSessions,
 } = require("../controllers/authController");
 const authenticateToken = require("../middleware/authenticateToken");
 
@@ -13,5 +14,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", authenticateToken, logout);
 router.get("/me", authenticateToken, getCurrentUser);
+router.post("/force-logout", forceLogoutAllSessions);
 
 module.exports = router;

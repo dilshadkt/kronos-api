@@ -63,13 +63,13 @@ exports.login = async (req, res) => {
     }
 
     // If user already has an active session
-    // if (user.role === "admin" && user.activeSession) {
-    //   return res.status(403).json({
-    //     message:
-    //       "Account is already logged in on another device. Please log out from other sessions first.",
-    //     timestamp: user.lastLoginTime,
-    //   });
-    // }
+    if (user.role === "admin" && user.activeSession) {
+      return res.status(403).json({
+        message:
+          "Account is already logged in on another device. Please log out from other sessions first.",
+        timestamp: user.lastLoginTime,
+      });
+    }
 
     // Generate new token and session
     const { token, sessionId } = generateToken(user);
@@ -133,7 +133,19 @@ exports.logout = async (req, res) => {
 // Force logout from all sessions (optional)
 exports.forceLogoutAllSessions = async (req, res) => {
   try {
-    await User.findByIdAndUpdate(req.user.id, {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email, isActive: true });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    await User.findByIdAndUpdate(user._id, {
       activeSession: null,
       lastLoginTime: null,
     });
